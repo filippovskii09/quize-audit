@@ -1,73 +1,85 @@
-# React + TypeScript + Vite
+# 🧠 Technical Knowledge Audit Tool
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Стильний та потужний клієнтський додаток для проведення аудиту технічних знань. Розроблений для швидкого опитування (Audit Form) та перевірки результатів (Admin Dashboard) без використання серверної частини.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Стек Технологій
 
-## React Compiler
+- **Core:** [React 18](https://react.dev/) (Functional Components, Hooks)
+- **Language:** [TypeScript](https://www.typescriptlang.org/) (Strict Mode)
+- **Bundler:** [Vite](https://vitejs.dev/)
+- **Styles:** [Tailwind CSS](https://tailwindcss.com/)
+- **i18n:** [React Intl](https://formatjs.io/docs/react-intl/) (FormatJS)
+- **Code Quality:** ESLint + Prettier + Husky (pre-commit checks)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🌟 Функціонал
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 👨‍🎓 Студентський Режим (Student Mode)
+- **Покроковий заповнювач**: Інтерактивна форма аудиту з пагінацією.
+- **Миттєвий Авто-сейв**: Стан відповідей синхронізується з `localStorage` в реальному часі.
+- **Розумна валідація**: Блокує експорт при пропущених відповідях, автоматично перенаправляючи та скролячи користувача до порожньої картки.
+- **Експорт**: Можливість завантажити свої відповіді у форматі `.json` для перевірки адміністратором.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 👑 Адмінський Режим (Admin Mode)
+- **Upload Zone**: Перетягування (.json) файлу експорту.
+- **Звітність (Reports)**: Формування структурованого звіту із позначками часу та текстовим аналізом кожної відповіді.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 🛠️ Архітектурні Особливості
+- **Нульовий бекенд**: 100% Client-Side.
+- **State Machine Pattern**: Суворе розділення станів IDLE, STUDENT_MODE, ADMIN_MODE.
+- **Container/Presentational pattern**: Повна декапсуляція UI від бізнес-логіки.
+- **Багатомовність (i18n)**: Підтримка локалій **EN / UA** прямо "з коробки".
+- **Path Aliases**: Модульні імпорти через `@ui`, `@icons`, `@src`.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+---
+
+## 📂 Структура Проєкту
+
+```text
+src/
+├── assets/             # Статичні файли та зображення
+├── components/
+│   ├── admin/          # Логіка та UI для перегляду результатів
+│   ├── student/        # Форма аудиту, картки питань
+│   ├── icons/          # Власна бібліотека SVG компонентів
+│   └── ui/             # Повторно використовувана база (Button, ProgressBar)
+├── data/               # Питання для аудиту та статичний контент
+├── hooks/              # Кастомні хуки (Pagination, LocalStorage)
+├── i18n/               # Сетап react-intl, контекст та .json переклади
+├── types/              # Загальні TypeScript інтерфейси
+├── App.tsx             # Глобальний State Machine та Роутер
+└── main.tsx            # Точка входу
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
+## 🏃‍♂️ Як запустити?
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+### 1. Клонувати проєкт та встановити залежності:
+```bash
+npm install
 ```
+
+### 2. Запустити локальний сервер для розробки:
+```bash
+npm run dev
+```
+
+### 3. Збірка для Production:
+```bash
+# Перевірка TypeScript + Vite Build
+npm run build
+```
+
+---
+
+## 🧹 Лінтери та Форматування
+
+У проєкті суворо налаштовано правила коду. Запустити перевірку вручну:
+```bash
+npm run lint
+```
+Перед кожним комітом спрацьовує **Husky & lint-staged**, автоматично форматуючи змінені файли.
