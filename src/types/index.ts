@@ -10,6 +10,15 @@ export interface Answer {
   timestamp: number;
 }
 
-export type AppMode = 'idle' | 'student' | 'admin';
+export const AppMode = {
+  IDLE: 'idle',
+  STUDENT: 'student',
+  ADMIN: 'admin',
+} as const;
 
-export type AppState = { mode: 'idle' } | { mode: 'student' } | { mode: 'admin' };
+export type AppModeType = (typeof AppMode)[keyof typeof AppMode];
+
+export type AppState =
+  | { mode: typeof AppMode.IDLE }
+  | { mode: typeof AppMode.STUDENT }
+  | { mode: typeof AppMode.ADMIN };

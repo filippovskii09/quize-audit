@@ -119,3 +119,28 @@ export const SettingsIcon = ({ className }) => (<svg className={className}> ... 
 // Inside page:
 import { SettingsIcon } from '@icons';
 ```
+## 7. State and Status Constants (Avoiding String Literals)
+When building state machines, routing modules, or maintaining statuses, always use mapped constant objects with `as const` instead of raw string literal unions for operational parameters.
+
+This prevents typo-bugs and provides a single point of failure updating. Avoid using `enum` when configuring Vite/TypeScript speedups might block transformers.
+
+*Example:*
+```typescript
+// types.ts
+export const AppMode = {
+  IDLE: 'idle',
+  STUDENT: 'student',
+  ADMIN: 'admin',
+} as const;
+
+export type AppState =
+  | { mode: typeof AppMode.IDLE }
+  | { mode: typeof AppMode.STUDENT }
+  | { mode: typeof AppMode.ADMIN };
+
+// App.tsx
+import { AppMode } from './types';
+
+const [state, setState] = useState<AppState>({ mode: AppMode.IDLE });
+if (state.mode === AppMode.ADMIN) { /* ... */ }
+```

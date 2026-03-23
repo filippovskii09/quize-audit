@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useIntl, FormattedMessage } from 'react-intl';
 
 import { SettingsIcon, ClipboardIcon } from '@icons';
+import { AppMode } from '@src/types';
 import type { AppState, Answer } from '@src/types';
 import { useLocalStorage } from '@src/hooks';
 import { AuditForm } from '@components/student';
@@ -13,7 +14,7 @@ import messages from './App.messages';
 export default function App() {
   const intl = useIntl();
   const { locale, toggleLocale } = useI18n();
-  const [appState, setAppState] = useState<AppState>({ mode: 'idle' });
+  const [appState, setAppState] = useState<AppState>({ mode: AppMode.IDLE });
   const [savedAnswers, setSavedAnswers, removeAnswers] = useLocalStorage<Record<string, Answer>>('audit_answers', {});
 
   const handleSaveAnswer = (questionId: string, text: string) => {
@@ -43,7 +44,7 @@ export default function App() {
       URL.revokeObjectURL(url);
 
       removeAnswers();
-      setAppState({ mode: 'idle' });
+      setAppState({ mode: AppMode.IDLE });
       alert(intl.formatMessage(messages.exportSuccess));
     } catch (error) {
       console.error('Export failed:', error);
@@ -58,7 +59,7 @@ export default function App() {
           <div
             className="flex items-center cursor-pointer"
             onClick={() => {
-              setAppState({ mode: 'idle' });
+              setAppState({ mode: AppMode.IDLE });
             }}
           >
             <div className="w-8 h-8 bg-blue-600 rounded-md flex items-center justify-center mr-3">
@@ -78,9 +79,9 @@ export default function App() {
             </button>
             <button
               onClick={() => {
-                setAppState({ mode: appState.mode === 'admin' ? 'idle' : 'admin' });
+                setAppState({ mode: appState.mode === AppMode.ADMIN ? AppMode.IDLE : AppMode.ADMIN });
               }}
-              className={`p-2 transition-colors rounded-full ${appState.mode === 'admin' ? 'text-blue-600 bg-blue-50' : 'text-gray-400 hover:text-gray-600 hover:bg-gray-100'}`}
+              className={`p-2 transition-colors rounded-full ${appState.mode === AppMode.ADMIN ? 'text-blue-600 bg-blue-50' : 'text-gray-400 hover:text-gray-600 hover:bg-gray-100'}`}
               title={intl.formatMessage(messages.adminAccess)}
             >
               <SettingsIcon />
@@ -90,7 +91,7 @@ export default function App() {
       </header>
 
       <main className="grow flex w-full">
-        {appState.mode === 'idle' && (
+        {appState.mode === AppMode.IDLE && (
           <div className="grow flex items-center justify-center p-4">
             <div className="max-w-md w-full bg-white rounded-xl shadow-lg p-8 text-center border border-gray-100">
               <div className="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -104,7 +105,7 @@ export default function App() {
               </p>
               <button
                 onClick={() => {
-                  setAppState({ mode: 'student' });
+                  setAppState({ mode: AppMode.STUDENT });
                 }}
                 className="w-full py-3 px-4 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500/30 transition-all transform hover:-translate-y-0.5 shadow-md"
               >
@@ -114,7 +115,7 @@ export default function App() {
           </div>
         )}
 
-        {appState.mode === 'student' && (
+        {appState.mode === AppMode.STUDENT && (
           <AuditForm
             questions={QUESTIONS}
             savedAnswers={savedAnswers}
@@ -123,7 +124,7 @@ export default function App() {
           />
         )}
 
-        {appState.mode === 'admin' && <AdminDashboard />}
+        {appState.mode === AppMode.ADMIN && <AdminDashboard />}
       </main>
     </div>
   );
