@@ -122,25 +122,31 @@ import { SettingsIcon } from '@icons';
 ## 7. State and Status Constants (Avoiding String Literals)
 When building state machines, routing modules, or maintaining statuses, always use mapped constant objects with `as const` instead of raw string literal unions for operational parameters.
 
-This prevents typo-bugs and provides a single point of failure updating. Avoid using `enum` when configuring Vite/TypeScript speedups might block transformers.
+### Rules of Constants:
+- **Location**: Global constants MUST be placed inside `src/constants/index.ts` (alias `@src/constants`).
+- **Naming**: Constant keys and variables MUST use `UPPER_SNAKE_CASE` (e.g., `APP_MODE` instead of `AppMode`).
+- Avoid using `enum` because full isolated builds in modern bundlers might skip required transformer passes.
 
 *Example:*
 ```typescript
-// types.ts
-export const AppMode = {
+// src/constants/index.ts
+export const APP_MODE = {
   IDLE: 'idle',
   STUDENT: 'student',
   ADMIN: 'admin',
 } as const;
 
+// src/types/index.ts
+import { APP_MODE } from '@src/constants';
+
 export type AppState =
-  | { mode: typeof AppMode.IDLE }
-  | { mode: typeof AppMode.STUDENT }
-  | { mode: typeof AppMode.ADMIN };
+  | { mode: typeof APP_MODE.IDLE }
+  | { mode: typeof APP_MODE.STUDENT }
+  | { mode: typeof APP_MODE.ADMIN };
 
-// App.tsx
-import { AppMode } from './types';
+// src/App.tsx
+import { APP_MODE } from '@src/constants';
 
-const [state, setState] = useState<AppState>({ mode: AppMode.IDLE });
-if (state.mode === AppMode.ADMIN) { /* ... */ }
+const [state, setState] = useState<AppState>({ mode: APP_MODE.IDLE });
+if (state.mode === APP_MODE.ADMIN) { /* ... */ }
 ```

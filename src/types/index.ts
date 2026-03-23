@@ -1,3 +1,5 @@
+import { APP_MODE } from '@src/constants';
+
 export interface Question {
   id: string;
   category: string;
@@ -10,15 +12,7 @@ export interface Answer {
   timestamp: number;
 }
 
-export const AppMode = {
-  IDLE: 'idle',
-  STUDENT: 'student',
-  ADMIN: 'admin',
-} as const;
-
-export type AppModeType = (typeof AppMode)[keyof typeof AppMode];
-
 export type AppState =
-  | { mode: typeof AppMode.IDLE }
-  | { mode: typeof AppMode.STUDENT }
-  | { mode: typeof AppMode.ADMIN };
+  | { mode: typeof APP_MODE.IDLE }
+  | { mode: typeof APP_MODE.STUDENT }
+  | { mode: typeof APP_MODE.ADMIN };
