@@ -18,10 +18,10 @@
       "@ui/*": ["src/components/ui/*"],
       "@icons": ["src/components/icons"],
       "@icons/*": ["src/components/icons/*"],
-      "@components": ["src/components"],
       "@components/*": ["src/components/*"],
       "@src": ["src"],
-      "@src/*": ["src/*"]
+      "@src/*": ["src/*"],
+      "@setupTest": ["src/setupTest.tsx"]
     },
     "moduleDetection": "force",
     "noEmit": true,

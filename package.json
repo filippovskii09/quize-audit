@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "test": "jest --coverage",
+    "lint:fix": "eslint . --fix",
+    "test": "NODE_OPTIONS='--experimental-vm-modules' jest --coverage",
     "preview": "vite preview",
     "prepare": "husky"
   },

@@ -12,6 +12,7 @@ export default defineConfig({
       '@icons': path.resolve(__dirname, './src/components/icons'),
       '@components': path.resolve(__dirname, './src/components'),
       '@src': path.resolve(__dirname, './src'),
+      '@setupTest': path.resolve(__dirname, './src/setupTest.tsx'),
     },
   },
 });

@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen } from '@setupTest';
 
 import { CategoryBadge } from '../index';
 import { CATEGORY_BADGE_FIXTURES } from './fixtures';

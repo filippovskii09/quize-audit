@@ -1,5 +1,4 @@
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen, userEvent, jest } from '@setupTest';
 
 import { Button } from '../index';
 import { BUTTON_FIXTURES } from './fixtures';

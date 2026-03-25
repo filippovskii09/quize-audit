@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen } from '@setupTest';
 import { ProgressBar } from './index';
 
 describe('ProgressBar component', () => {

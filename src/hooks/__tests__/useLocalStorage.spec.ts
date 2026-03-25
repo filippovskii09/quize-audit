@@ -1,4 +1,4 @@
-import { renderHook, act } from '@testing-library/react';
+import { renderHook, act, jest } from '@setupTest';
 
 import { useLocalStorage } from '../useLocalStorage';
 
@@ -60,10 +60,12 @@ describe('useLocalStorage', () => {
   });
 
   describe('Error handling', () => {
-    let consoleSpy: jest.SpyInstance;
+    let consoleSpy: jest.Spied<typeof console.warn>;
 
     beforeEach(() => {
-      consoleSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+      consoleSpy = jest.spyOn(console, 'warn').mockImplementation(() => {
+        /* ignore warning */
+      });
     });
 
     afterEach(() => {
@@ -72,22 +74,20 @@ describe('useLocalStorage', () => {
     });
 
     it('should fall back to initial value when reading fails', () => {
-      jest.spyOn(Storage.prototype, 'getItem').mockImplementation(() => {
-        throw new Error('Storage reading exception');
+      jest.spyOn(Storage.prototype, 'getItem').mockImplementation((key) => {
+        if (key === TEST_KEY) throw new Error('Storage reading exception');
+        return null;
       });
 
       const { result } = renderHook(() => useLocalStorage(TEST_KEY, 'initial'));
 
       expect(result.current[0]).toBe('initial');
-      expect(consoleSpy).toHaveBeenCalledWith(
-        `Error reading localStorage key "${TEST_KEY}":`,
-        expect.any(Error)
-      );
+      expect(consoleSpy).toHaveBeenCalledWith(`Error reading localStorage key "${TEST_KEY}":`, expect.any(Error));
     });
 
     it('should display warning on console when writing fails', () => {
-      jest.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
-        throw new Error('Storage writing exception');
+      jest.spyOn(Storage.prototype, 'setItem').mockImplementation((key) => {
+        if (key === TEST_KEY) throw new Error('Storage writing exception');
       });
 
       const { result } = renderHook(() => useLocalStorage(TEST_KEY, 'initial'));
@@ -97,15 +97,12 @@ describe('useLocalStorage', () => {
       });
 
       expect(result.current[0]).toBe('updated');
-      expect(consoleSpy).toHaveBeenCalledWith(
-        `Error setting localStorage key "${TEST_KEY}":`,
-        expect.any(Error)
-      );
+      expect(consoleSpy).toHaveBeenCalledWith(`Error setting localStorage key "${TEST_KEY}":`, expect.any(Error));
     });
 
     it('should display warning on console when removing fails', () => {
-      jest.spyOn(Storage.prototype, 'removeItem').mockImplementation(() => {
-        throw new Error('Storage removing exception');
+      jest.spyOn(Storage.prototype, 'removeItem').mockImplementation((key) => {
+        if (key === TEST_KEY) throw new Error('Storage removing exception');
       });
 
       const { result } = renderHook(() => useLocalStorage(TEST_KEY, 'initial'));
@@ -115,10 +112,7 @@ describe('useLocalStorage', () => {
       });
 
       expect(result.current[0]).toBe('initial');
-      expect(consoleSpy).toHaveBeenCalledWith(
-        `Error removing localStorage key "${TEST_KEY}":`,
-        expect.any(Error)
-      );
+      expect(consoleSpy).toHaveBeenCalledWith(`Error removing localStorage key "${TEST_KEY}":`, expect.any(Error));
     });
   });
 });
