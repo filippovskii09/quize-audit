@@ -1,0 +1,18 @@
+{
+  "skill": "skill-hooks-library",
+  "domain": "shared-hooks",
+  "source": [
+    "src/hooks/index.ts",
+    "src/hooks/useLocalStorage.ts",
+    "src/hooks/usePagination.ts"
+  ],
+  "tests": [
+    "src/hooks/__tests__/useLocalStorage.spec.ts",
+    "src/hooks/__tests__/usePagination.spec.ts"
+  ],
+  "checks": [
+    "Hooks are exported through barrel index",
+    "Hook APIs are typed and generic where needed",
+    "All behavior branches are covered by tests"
+  ]
+}
