@@ -1,0 +1,18 @@
+{
+  "skill": "generic-git-hooks",
+  "purpose": "Reusable pre-commit automation with Husky and lint-staged",
+  "source": {
+    "packageScript": "prepare: husky",
+    "hookFile": ".husky/pre-commit",
+    "hookCommand": "npx lint-staged"
+  },
+  "dependencies": ["husky", "lint-staged", "eslint", "prettier"],
+  "commands": {
+    "bootstrap": ["npm install -D husky lint-staged eslint prettier", "npm run prepare"],
+    "validate": ["npx lint-staged"]
+  },
+  "stagedRules": {
+    "*.{ts,tsx,js,jsx}": ["eslint --fix", "prettier --write"],
+    "*.{json,css,md}": ["prettier --write"]
+  }
+}
