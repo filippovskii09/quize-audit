@@ -1,8 +1,8 @@
-import React from 'react';
+import type { FC } from 'react';
 
 import type { ButtonProps } from './types';
 
-export const Button: React.FC<ButtonProps> = ({ variant = 'primary', className = '', children, ...props }) => {
+export const Button: FC<ButtonProps> = ({ variant = 'primary', className = '', children, ...props }) => {
   const baseClasses =
     'px-6 py-2 rounded-md transition-colors shadow-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2';
 

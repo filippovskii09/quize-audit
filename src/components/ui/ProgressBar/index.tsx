@@ -1,8 +1,8 @@
-import React from 'react';
+import type { FC } from 'react';
 
 import type { ProgressBarProps } from './types';
 
-export const ProgressBar: React.FC<ProgressBarProps> = ({ current, total }) => {
+export const ProgressBar: FC<ProgressBarProps> = ({ current, total }) => {
   const percentage = total > 0 ? (current / total) * 100 : 0;
 
   return (
