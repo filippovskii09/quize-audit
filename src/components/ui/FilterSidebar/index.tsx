@@ -72,6 +72,7 @@ export const FilterSidebar = ({
                       >
                         <span className="flex items-center gap-2">
                           <input
+                            aria-label={option.label}
                             checked={checked}
                             className="h-4 w-4 rounded border-slate-300 text-sky-600 focus:ring-sky-500"
                             disabled={option.disabled}
