@@ -1,0 +1,21 @@
+{
+  "skill": "jest-setup-recipe",
+  "source": "jest.config.ts",
+  "purpose": "Jest runtime for React + TypeScript + ESM",
+  "commands": {
+    "test": "npm test"
+  },
+  "preset": "ts-jest/presets/default-esm",
+  "testEnvironment": "jsdom",
+  "setupFilesAfterEnv": ["<rootDir>/src/setupTest.tsx"],
+  "transform": {
+    "^.+\\.tsx?$": ["ts-jest", { "useESM": true, "tsconfig": "tsconfig.test.json" }]
+  },
+  "dependencies": [
+    "jest",
+    "ts-jest",
+    "jest-environment-jsdom",
+    "@testing-library/react",
+    "@testing-library/jest-dom"
+  ]
+}
