@@ -1,10 +1,4 @@
-import type { FilterGroup } from './types';
-
-interface FilterSidebarGroupProps {
-  group: FilterGroup;
-  selectedValues: Record<string, string[]>;
-  onOptionToggle: (groupId: string, optionValue: string, checked: boolean) => void;
-}
+import type { FilterSidebarGroupProps } from './types';
 
 export const FilterSidebarGroup = ({ group, selectedValues, onOptionToggle }: FilterSidebarGroupProps) => {
   const getIsChecked = (optionValue: string): boolean => {

@@ -27,3 +27,9 @@ export interface FilterSidebarProps {
   onMobileClose?: () => void;
   className?: string;
 }
+
+export interface FilterSidebarGroupProps {
+  group: FilterGroup;
+  selectedValues: Record<string, string[]>;
+  onOptionToggle: (groupId: string, optionValue: string, checked: boolean) => void;
+}
