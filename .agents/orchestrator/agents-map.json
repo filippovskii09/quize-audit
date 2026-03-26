@@ -1,0 +1,18 @@
+{
+  "architect": {
+    "definition": ".agents/agents/architect.md",
+    "skills": ["eslint-config-recipe"]
+  },
+  "qa_engine": {
+    "definition": ".agents/agents/qa_engine.md",
+    "skills": ["jest-setup-recipe", "skill-hooks-library"]
+  },
+  "linter_bot": {
+    "definition": ".agents/agents/linter_bot.md",
+    "skills": ["generic-git-hooks", "eslint-config-recipe", "prettier-config-recipe"]
+  },
+  "senior-reviewer": {
+    "definition": ".agents/agents/senior-reviewer.md",
+    "skills": ["eslint-config-recipe"]
+  }
+}

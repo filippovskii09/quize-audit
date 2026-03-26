@@ -1,0 +1,8 @@
+{
+  "generic-git-hooks": ".agents/skills/generic-git-hooks",
+  "eslint-config-recipe": ".agents/skills/eslint-config-recipe",
+  "prettier-config-recipe": ".agents/skills/prettier-config-recipe",
+  "jest-setup-recipe": ".agents/skills/jest-setup-recipe",
+  "skill-i18n-setup": ".agents/skills/skill-i18n-setup",
+  "skill-hooks-library": ".agents/skills/skill-hooks-library"
+}
