@@ -1,4 +1,5 @@
 import type { FilterSidebarProps } from './types';
+import { FilterSidebarGroup } from './FilterSidebarGroup';
 
 export const FilterSidebar = ({
   groups,
@@ -9,10 +10,6 @@ export const FilterSidebar = ({
   onMobileClose,
   className = '',
 }: FilterSidebarProps) => {
-  const getIsChecked = (groupId: string, optionValue: string): boolean => {
-    return selectedValues[groupId]?.includes(optionValue) ?? false;
-  };
-
   const handleOptionToggle = (groupId: string, optionValue: string, checked: boolean): void => {
     onChange({ groupId, optionValue, checked });
   };
@@ -51,48 +48,12 @@ export const FilterSidebar = ({
 
         <div className="space-y-6">
           {groups.map((group) => (
-            <section key={group.id} aria-labelledby={`filter-group-${group.id}`}>
-              <h3
-                id={`filter-group-${group.id}`}
-                className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-600"
-              >
-                {group.title}
-              </h3>
-
-              <ul className="space-y-2">
-                {group.options.map((option) => {
-                  const checked = getIsChecked(group.id, option.value);
-
-                  return (
-                    <li key={option.value}>
-                      <label
-                        className={`flex cursor-pointer items-center justify-between rounded-md border px-3 py-2 text-sm transition-colors ${
-                          checked ? 'border-sky-500 bg-sky-50 text-sky-800' : 'border-slate-200 hover:bg-slate-50'
-                        } ${option.disabled ? 'cursor-not-allowed opacity-60' : ''}`}
-                      >
-                        <span className="flex items-center gap-2">
-                          <input
-                            aria-label={option.label}
-                            checked={checked}
-                            className="h-4 w-4 rounded border-slate-300 text-sky-600 focus:ring-sky-500"
-                            disabled={option.disabled}
-                            type={group.multiSelect === false ? 'radio' : 'checkbox'}
-                            name={`filter-group-${group.id}`}
-                            onChange={(event) => {
-                              handleOptionToggle(group.id, option.value, event.currentTarget.checked);
-                            }}
-                          />
-                          <span>{option.label}</span>
-                        </span>
-                        {option.count !== undefined ? (
-                          <span className="text-xs text-slate-500">{option.count}</span>
-                        ) : null}
-                      </label>
-                    </li>
-                  );
-                })}
-              </ul>
-            </section>
+            <FilterSidebarGroup
+              key={group.id}
+              group={group}
+              selectedValues={selectedValues}
+              onOptionToggle={handleOptionToggle}
+            />
           ))}
         </div>
       </aside>
