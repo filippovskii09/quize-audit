@@ -1,0 +1,18 @@
+{
+  "skill": "eslint-config-recipe",
+  "source": "eslint.config.js",
+  "purpose": "Type-aware linting for React + TypeScript",
+  "commands": {
+    "lint": "npm run lint",
+    "lintFix": "npm run lint:fix"
+  },
+  "parserProjects": ["./tsconfig.app.json", "./tsconfig.node.json"],
+  "plugins": ["react-hooks", "react-refresh", "prettier"],
+  "criticalRules": [
+    "@typescript-eslint/no-unused-vars",
+    "@typescript-eslint/no-explicit-any",
+    "@typescript-eslint/no-floating-promises",
+    "@typescript-eslint/require-await",
+    "react-refresh/only-export-components"
+  ]
+}
