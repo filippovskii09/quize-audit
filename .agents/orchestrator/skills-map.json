@@ -1,7 +1,9 @@
 {
   "generic-git-hooks": ".agents/skills/generic-git-hooks",
+  "commitlint-husky-recipe": ".agents/skills/commitlint-husky-recipe",
   "eslint-config-recipe": ".agents/skills/eslint-config-recipe",
   "prettier-config-recipe": ".agents/skills/prettier-config-recipe",
+  "pre-commit-framework-recipe": ".agents/skills/pre-commit-framework-recipe",
   "jest-setup-recipe": ".agents/skills/jest-setup-recipe",
   "skill-i18n-setup": ".agents/skills/skill-i18n-setup",
   "skill-hooks-library": ".agents/skills/skill-hooks-library"
