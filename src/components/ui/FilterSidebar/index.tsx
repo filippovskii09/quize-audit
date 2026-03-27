@@ -34,7 +34,7 @@ export const FilterSidebar = ({
         />
       ) : null}
 
-      <aside className={sidebarBaseClasses}>
+      <aside className={sidebarBaseClasses} data-testid="filter-sidebar">
         <div className="mb-5 flex items-center justify-between">
           <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-900">{title}</h2>
           <button
